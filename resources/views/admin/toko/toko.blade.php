@@ -1,198 +1,148 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Daftar Toko</title>
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+@extends('admin.layouts.admin')
+
+@section('content')
     <style>
-        /* Base styles for Mobile */
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f4;
+        .card-toko {
             display: flex;
             flex-direction: column;
-            min-height: 100vh;
-        }
-
-        .container {
-            max-width: 100%;
-            margin: 0 auto;
-            padding: 20px;
-            background-color: white;
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-            border-radius: 8px;
-        }
-
-        h1 {
-            text-align: center;
-            font-size: 1.6em;
-            margin-bottom: 20px;
-        }
-
-        .card {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
             margin-bottom: 20px;
             border: 1px solid #ddd;
             padding: 10px;
             border-radius: 8px;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            background: white;
         }
 
-        .card img {
+        .card-toko img {
             width: 100%;
             height: auto;
             object-fit: cover;
             border-radius: 8px;
+            margin-bottom: 10px;
         }
 
-        .card-content {
-            flex-grow: 1;
-            padding-left: 10px;
+        .card-toko-content {
+            padding: 0;
             text-align: center;
         }
 
-        .card-content h3 {
-            margin: 0;
-            font-size: 1.2em;
+        .card-toko-content h5 {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 6px;
             color: #333;
         }
 
-        .card-content p {
-            margin: 5px 0;
-            color: #777;
+        .card-toko-content p {
+            font-size: 14px;
+            color: #555;
+            margin: 4px 0;
         }
 
-        .btn-add {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background-color: black;
+        .btn-detail {
+            font-size: 14px;
             color: white;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            cursor: pointer;
-            font-size: 30px;
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-        }
-
-        .btn-add:hover {
-            background-color: #333;
-        }
-
-        .btn-add a {
-            color: white;
+            background-color: #17a2b8;
+            padding: 6px 12px;
+            border-radius: 5px;
             text-decoration: none;
+            display: inline-block;
+            margin-top: 8px;
         }
 
-        .card-content .read-more {
-            color: #007bff;
-            text-decoration: none;
-            font-weight: bold;
+        .btn-detail:hover {
+            background-color: #138496;
         }
 
-        .card-content .read-more:hover {
-            text-decoration: underline;
-        }
-
-        /* Mobile Adjustments */
-        @media (max-width: 767px) {
-            h1 {
-                font-size: 1.4em;
-            }
-
-            .card {
-                flex-direction: column;
-                align-items: center;
-                padding: 15px;
-            }
-
-            .card img {
-                width: 100%;
-                height: 200px;
-                object-fit: cover;
-                border-radius: 8px;
-            }
-
-            .card-content {
-                text-align: center;
-            }
-
-            .btn-add {
-                font-size: 25px;
-                width: 45px;
-                height: 45px;
-            }
-        }
-
-        /* Desktop Adjustments */
         @media (min-width: 768px) {
-            .container {
-                max-width: 800px;
-                padding: 40px;
+            .card-toko {
+                flex-direction: row;
+                align-items: center;
+                gap: 20px;
             }
 
-            h1 {
-                font-size: 2em;
+            .card-toko img {
+                width: 200px;
+                height: 150px;
+                margin-bottom: 0;
             }
 
-            .card {
-                display: flex;
+            .card-toko-content {
+                text-align: left;
+                flex: 1;
+            }
+        }
+
+        @media (max-width: 767px) {
+            .card-toko {
                 flex-direction: row;
                 align-items: center;
             }
 
-            .card img {
-                width: 80px;
-                height: 80px;
+            .card-toko img {
+                width: 100px;
+                height: 100px;
+                margin-bottom: 0;
+                border-radius: 8px;
                 object-fit: cover;
-                margin-right: 20px;
+                flex-shrink: 0;
             }
 
-            .card-content {
+            .card-toko-content {
+                padding-left: 15px;
                 text-align: left;
+                flex: 1;
             }
 
-            .btn-add {
-                font-size: 30px;
-                width: 50px;
-                height: 50px;
+            .card-toko-content h5 {
+                font-size: 16px;
+                margin-bottom: 4px;
+            }
+
+            .card-toko-content p {
+                font-size: 13px;
+            }
+
+            .btn-detail {
+                font-size: 13px;
+                padding: 5px 10px;
             }
         }
     </style>
-</head>
-<body>
+
+    <h1>{{ $title }}</h1>
+
+    @if(session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
+    @endif
+
     <div class="container">
-        <h1>Daftar Toko</h1>
-
-        @if(session('success'))
-            <p>{{ session('success') }}</p>
-        @endif
-
         @foreach ($toko as $t)
-            <div class="card">
-                <img src="{{ asset('images/' . $t->foto_toko) }}" alt="Foto Toko">
-                <div class="card-content">
-                    <h3>{{ $t->nama_toko }}</h3>
-                    <p><strong>Lokasi:</strong> <a href="https://maps.app.goo.gl/{{ $t->lokasi }}" target="_blank">{{ $t->lokasi }}</a></p>
+            <div class="card-toko">
+                @if ($t->foto_toko)
+                    <img src="{{ asset('images/' . $t->foto_toko) }}" alt="Foto Toko">
+                @else
+                    <div style="width:100px; height:100px; background:#f0f0f0; border-radius:8px; display:flex; align-items:center; justify-content:center; color:#888; font-size:12px;">
+                        Tidak ada gambar
+                    </div>
+                @endif
+
+                <div class="card-toko-content">
+                    <h5>{{ $t->nama_toko }}</h5>
+                    <p><strong>Lokasi:</strong> {{ $t->lokasi }}</p>
                     <p><strong>Jam Operasional:</strong> {{ $t->jam_operasional }}</p>
-                    <a href="{{ route('toko.detail', $t->id) }}" class="read-more">Selengkapnya</a>
+                    <a href="{{ route('toko.detail', $t->id) }}" class="btn-detail">Detail</a>
                 </div>
             </div>
         @endforeach
-    </div>
 
-    <div class="btn-add">
-        <a href="{{ route('toko.create') }}">
-            <span class="material-icons">add</span>
-        </a>
+        <div style="display: flex; justify-content: flex-end; gap: 10px; margin-bottom: 20px; margin-top: 10px;">
+            <a href="{{ route('toko.create') }}" class="btn btn-primary">
+                Tambah Toko
+            </a>
+        </div>
     </div>
-</body>
-</html>
+@endsection
