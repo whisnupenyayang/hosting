@@ -138,7 +138,6 @@
 
         if (moreText.style.display === 'inline') {
             moreText.style.display = 'none';
-            button.innerText = 'Selengkapnya';
         } else {
             moreText.style.display = 'inline';
             button.innerText = 'Tutup';
@@ -153,18 +152,19 @@
             <img src="{{ asset('foto/' . $iklan->gambar) }}" alt="Foto Produk" class="profile-img">
 
             <div class="card-info">
-                <h5>{{ $iklan->judul_iklan }}</h5>
+                <h5>Judul: {{ $iklan->judul_iklan }}</h5>
                 <p>
+                    <strong>Deskripsi:</strong>
                     {{ Str::limit($iklan->deskripsi_iklan, 10) }}
                     @if (strlen($iklan->deskripsi_iklan) > 10)
                     <span id="more-text-{{ $iklan->id }}" style="display: none;">
                         {{ substr($iklan->deskripsi_iklan, 10) }}
                     </span>
-                    <span id="show-more-{{ $iklan->id }}" class="show-more" onclick="toggleDescription({{ $iklan->id }})">Selengkapnya</span>
                     @endif
                 </p>
 
                 <p>
+                    <strong>Link Produk:</strong>
                     @php
                     $link = trim($iklan->link);
                     if ($link && !preg_match('/^https?:\/\//', $link)) {
@@ -181,7 +181,6 @@
                     @endif
 
                     <br>
-                    <a href="{{ route('iklan.show', $iklan->id) }}" class="text-link">Selengkapnya</a>
                 </p>
 
 
@@ -208,13 +207,6 @@
                             <label>Deskripsi</label>
                             <textarea name="deskripsi_iklan" class="form-control" rows="3">{{ $iklan->deskripsi_iklan }}</textarea>
                         </div>
-
-                        <div class="mb-2">
-                            <div style="margin-top: 4px;">
-                                <a href="{{ route('iklan.show', $iklan->id) }}" target="_blank" class="text-link">Lihat detail iklan</a>
-                            </div>
-                        </div>
-
 
                         <div class="mb-2">
                             <label>Gambar</label>

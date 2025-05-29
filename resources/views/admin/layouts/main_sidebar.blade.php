@@ -38,9 +38,7 @@
             <li class="nav-item">
                 <a href="/admin/dashboard" class="nav-link {{ \Route::is('dashboard') ? 'active' : '' }}">
                     <i class="">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-                            <path fill="currentColor" d="M10 20v-6h4v6h5v-8h3L12 3L2 12h3v8h5z" />
-                        </svg>
+                        <img src="{{ asset('Icon/Icon RUmah.png') }}" alt="Budidaya" width="24" height="24">
                     </i>
                     <p>
                         Beranda
@@ -94,7 +92,7 @@
                     </p>
                 </a>
             </li>
-            
+
              -->
 
             <!-- menu sebelumnya -->
@@ -123,7 +121,7 @@
                         <img src="{{ asset('Icon/lectern-white.png') }}" alt="Budidaya" width="24" height="24">
                     </i>
                     <p>
-                        Pengajuan Fasilitator
+                        Pengajuan
                     </p>
                 </a>
             </li>
@@ -176,6 +174,12 @@
                     </i>
                     <p>Resep minuman
                     </p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{{ route('getDataUser') }}" class="nav-link {{ \Route::is('user.index') ? 'active' : '' }}">
+                    <i class="fas fa-users-cog"></i>
+                    <p>Data User</p>
                 </a>
             </li>
 

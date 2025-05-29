@@ -6,6 +6,7 @@ use App\Http\Controllers\PanenController;
 use App\Http\Controllers\ArtikelController;
 use App\Http\Controllers\MinumanController;
 use App\Http\Controllers\BudidayaController;
+use App\Http\Controllers\DataUserController;
 use App\Http\Controllers\PengajuanController;
 use App\Http\Controllers\PascaPanenController;
 use App\Http\Controllers\IklanController;
@@ -90,6 +91,9 @@ Route::post('/toko', [TokoController::class, 'store'])->name('toko.store');
 Route::get('/toko/{id}', [TokoController::class, 'detailToko'])->name('toko.detail');
 Route::delete('/toko/{id}', [TokoController::class, 'destroy'])->name('toko.destroy');
 Route::post('/toko/store', [TokoController::class, 'store'])->name('toko.store');
+Route::get('/toko/{id}/edit', [TokoController::class, 'edit'])->name('toko.edit');
+Route::put('/toko/{id}', [TokoController::class, 'update'])->name('toko.update');
+
 
 // Artikel Admin
 Route::get('admin/artikel', [ArtikelController::class, 'index'])->name('artikel.index');
@@ -109,6 +113,7 @@ Route::get('/admin/pengepul/{id}', [PengepulController::class, 'show'])->name('p
 Route::get('/admin/pengepul/{id}/edit', [PengepulController::class, 'edit'])->name('admin.pengepul.edit');
 Route::put('/admin/pengepul/{id}/update', [PengepulController::class, 'update'])->name('admin.pengepul.update');
 Route::post('/admin/pengepul/updateField', [PengepulController::class, 'updateField'])->name('admin.pengepul.updateField');
+Route::delete('/admin/pengepul/{id}', [PengepulController::class, 'destroy'])->name('admin.pengepul.destroy');
 
 
 //kegiatan
@@ -161,6 +166,11 @@ Route::put('/user/{id}/deactivate', [PengajuanController::class, 'deactivate'])-
 Route::delete('/user/{id}', [PengajuanController::class, 'delete'])->name('user.destroy');
 Route::put('/user/{id}/activate', [PengajuanController::class, 'activate'])->name('user.activate');
 Route::get('/user/{id}/edit', [PengajuanController::class, 'edit'])->name('user.edit');
+
+
+
+
+
 
     // Optional Show Routes (jika ingin digunakan kembali)
     // Route::get('/budidaya/{id}', [BudidayaController::class, 'show'])->name('budidaya.show');

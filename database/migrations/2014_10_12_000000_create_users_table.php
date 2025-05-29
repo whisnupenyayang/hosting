@@ -24,11 +24,14 @@ return new class extends Migration
             $table->string('provinsi');
             $table->string('kabupaten');
             $table->string('no_telp', 13);
+            $table->string('image')->nullable();
             $table->boolean('status')->nullable();
             $table->enum('role', ['admin', 'fasilitator', 'pengepul', 'petani'])->default('petani');
             $table->timestamp('email_verified_at')->nullable();
             $table->rememberToken();
             $table->timestamps();
+
+            $table->softDeletes();
         });
     }
 
